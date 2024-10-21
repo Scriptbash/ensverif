@@ -333,10 +333,12 @@ def logscore(ens, obs, distribution, thres=0, options=None):
     # calculation depending on the distribution
     if distribution == 'Empirical':
         # if no "options" are given, the number of bins is the number of nonNaN members
-        if (options < 2) or (not isinstance(options, int)):
-            sys.exit('Format of options is not valide.')
+        if not options:
+            pass
+        elif not isinstance(options, int) or options < 2:
+            sys.exit('Format of options is not valid.')
 
-        if  not isinstance(thres, float):
+        if not isinstance(thres, float):
             sys.exit('Format of threshold is not valid. It needs to be a \
                      list with 2 entries, determining the upper and lower \
                          bound for aberrant values')

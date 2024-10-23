@@ -1,13 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-#__init__.py
+from .ensverif import (
+    crps,
+    crps_hersbach_decomposition,
+    logscore,
+    reliability,
+    rankhist,
+)
 
-import ensverif.crps
-import ensverif.crps_hersbach_decomposition
-import ensverif.logscore
-import ensverif.reliability
-import ensverif.rankhist           
-
-        
-
-    

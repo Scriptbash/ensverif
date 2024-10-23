@@ -17,7 +17,7 @@ using pip, or from github
 """
 
 import pandas as pd
-import ensverif
+from ensverif import ensverif
 import matplotlib.pyplot as plt
 
 fcsts_all = pd.read_csv("/Users/marieamelie/Desktop/glofas_fcst_station_022513.csv")
@@ -37,23 +37,23 @@ fcsts_24h_valid = fcsts_24h[fcsts_24h['echeance'].isin(obs_valid.Date)]
 
 # Compute the CRPS using the empirical distribution of forecast members
 # (other options are possible).
-crps_24h = ensverif.crps(fcsts_24h_valid.iloc[:,4:54].values, obs_valid.Obs, 'emp')
+crps_24h = ensverif.crps(fcsts_24h_valid.iloc[:, 4:54].values, obs_valid.Obs, 'emp')
 
 # CRPS decomposition according to Hersbach (2000)
-crps_hersbach_24h, rel_24h, pot_24h = ensverif.crps_hersbach_decomposition(fcsts_24h_valid.iloc[:,4:54].values, obs_valid.Obs)
+crps_hersbach_24h, rel_24h, pot_24h = ensverif.crps_hersbach_decomposition(fcsts_24h_valid.iloc[:, 4:54].values, obs_valid.Obs)
 
 # Logarithmic (or ignorance) score
-slog_24h = ensverif.logscore(fcsts_24h_valid.iloc[:,4:54].values, obs_valid.Obs, 'Normal', thres=0.001)
+slog_24h = ensverif.logscore(fcsts_24h_valid.iloc[:, 4:54].values, obs_valid.Obs, 'Normal', thres=0.001)
 
 # Rank histogram
-rel_freq, bins = ensverif.rankhist(fcsts_24h_valid.iloc[:,4:54].values, obs_valid.Obs)
+rel_freq, bins = ensverif.rankhist(fcsts_24h_valid.iloc[:, 4:54].values, obs_valid.Obs)
 plt.figure()
 plt.bar(bins[1:len(bins)],rel_freq)
 plt.xlabel('Rank')
 plt.ylabel('Relative frequency')
 
 # Reliability diagram
-nominal_coverage, effective_coverage, length_intervals = ensverif.reliability(fcsts_24h_valid.iloc[:,4:54].values, obs_valid.Obs)
+nominal_coverage, effective_coverage, length_intervals = ensverif.reliability(fcsts_24h_valid.iloc[:, 4:54].values, obs_valid.Obs)
 plt.figure()
 plt.plot(nominal_coverage, effective_coverage,'.')
 plt.ylim(0, 1)
